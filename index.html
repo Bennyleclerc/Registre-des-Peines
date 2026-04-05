@@ -18,6 +18,9 @@
     --danger: #c0392b;
     --danger-bg: #2a1210;
     --success: #4caf7d;
+    --success-bg: #0f2a1a;
+    --warning: #d4a84b;
+    --warning-bg: #2a1e08;
     --light-peine: #1a2e3d;
     --light-peine-text: #6ab0d4;
     --med-peine: #2e2510;
@@ -27,333 +30,174 @@
     --font-display: 'Crimson Pro', Georgia, serif;
     --font-mono: 'DM Mono', monospace;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    min-height: 100vh;
-  }
-
-  /* TOP BAR */
   .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 2rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 2rem; border-bottom: 1px solid var(--border);
+    background: var(--surface); position: sticky; top: 0; z-index: 200;
   }
-
-  .logo {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
-
+  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--accent); letter-spacing: 0.02em; }
   .logo span { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 10px; }
-
-  .sync-dot {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--muted);
-    transition: background 0.3s;
-  }
+  .sync-dot { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); transition: background 0.3s; }
   .dot.live { background: var(--success); box-shadow: 0 0 6px var(--success); }
 
-  /* STATS */
-  .stats-bar {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-  }
-
-  .stat-item {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    border-right: 1px solid var(--border);
-    text-align: center;
-  }
+  .stats-bar { display: flex; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .stat-item { flex: 1; padding: 1rem 1.5rem; border-right: 1px solid var(--border); text-align: center; }
   .stat-item:last-child { border-right: none; }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .stat-value { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--accent); }
 
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  /* MAIN */
   .main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
 
-  /* ADD FORM */
   .form-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-top: 2px solid var(--accent);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-top: 2px solid var(--accent); padding: 1.5rem; margin-bottom: 2rem;
   }
-
-  .form-title {
-    font-family: var(--font-display);
-    font-size: 16px;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .form-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-
-  .f-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .f-group label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
+  .form-title { font-family: var(--font-display); font-size: 16px; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .form-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .f-group { display: flex; flex-direction: column; gap: 5px; position: relative; }
+  .f-group label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
   .f-group input, .f-group select {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    padding: 8px 12px;
-    height: 38px;
-    outline: none;
-    transition: border-color 0.2s;
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-mono); font-size: 14px; padding: 8px 12px;
+    height: 38px; outline: none; transition: border-color 0.2s;
   }
-
-  .f-group input:focus, .f-group select:focus {
-    border-color: var(--accent);
-  }
-
-  .f-group.f-nom { flex: 2; min-width: 180px; }
+  .f-group input:focus, .f-group select:focus { border-color: var(--accent); }
+  .f-group.f-nom { flex: 2; min-width: 200px; }
   .f-group.f-delit { flex: 2; min-width: 150px; }
   .f-group.f-num { width: 90px; }
   .f-group.f-unit { width: 100px; }
 
+  .autocomplete-list {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 300;
+    background: var(--surface2); border: 1px solid var(--accent2);
+    border-top: none; max-height: 200px; overflow-y: auto; display: none;
+  }
+  .autocomplete-list.open { display: block; }
+  .autocomplete-item {
+    padding: 9px 12px; font-size: 13px; cursor: pointer;
+    border-bottom: 1px solid var(--border); color: var(--text); transition: background 0.12s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .autocomplete-item:hover, .autocomplete-item.selected { background: var(--accent2); color: var(--bg); }
+  .tag-existing { font-size: 10px; background: var(--med-peine); color: var(--med-peine-text); padding: 1px 6px; border: 1px solid #4a3c18; }
+
   .btn-primary {
-    height: 38px;
-    padding: 0 20px;
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    transition: background 0.2s;
-    white-space: nowrap;
+    height: 38px; padding: 0 20px; background: var(--accent); color: var(--bg);
+    border: none; font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s; white-space: nowrap;
   }
   .btn-primary:hover { background: #d4b483; }
+  .err-msg { margin-top: 10px; font-size: 13px; color: #e07070; display: none; }
 
-  .err-msg {
-    margin-top: 10px;
-    font-size: 13px;
-    color: #e07070;
-    display: none;
-  }
-
-  /* SEARCH */
-  .search-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    align-items: center;
-  }
-
+  .search-row { display: flex; gap: 10px; margin-bottom: 1.5rem; align-items: center; }
   .search-row input {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    padding: 8px 14px;
-    height: 38px;
-    outline: none;
-    transition: border-color 0.2s;
+    flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-mono); font-size: 14px; padding: 8px 14px; height: 38px; outline: none; transition: border-color 0.2s;
   }
-
   .search-row input:focus { border-color: var(--accent2); }
+  .count-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
 
-  .count-label {
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  /* TABLE */
   .table-wrap { overflow-x: auto; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
-    text-align: left;
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    font-weight: 500;
+    text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 10px 12px; border-bottom: 1px solid var(--border);
+    background: var(--surface); font-weight: 500;
   }
-
-  tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-
-  tbody tr:hover { background: var(--surface2); }
-
-  tbody td {
-    padding: 10px 12px;
-    vertical-align: middle;
-    color: var(--text);
-  }
+  tbody tr.main-row { border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: pointer; }
+  tbody tr.main-row:hover { background: var(--surface2); }
+  tbody td { padding: 10px 12px; vertical-align: middle; color: var(--text); }
 
   .td-num { color: var(--muted); font-size: 11px; width: 32px; }
-  .td-nom { font-weight: 500; font-size: 14px; font-family: var(--font-display); color: var(--accent); }
+  .td-nom { font-weight: 500; font-size: 15px; font-family: var(--font-display); color: var(--accent); }
+  .td-nom .date-sub { font-size: 11px; color: var(--muted); font-family: var(--font-mono); font-weight: 400; }
 
-  /* BADGES */
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    padding: 2px 8px;
-    margin: 2px 2px 2px 0;
-    font-family: var(--font-mono);
-    border: 1px solid;
-  }
-
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; margin: 2px 2px 2px 0; font-family: var(--font-mono); border: 1px solid; }
   .badge-light { background: var(--light-peine); color: var(--light-peine-text); border-color: #2a4a5e; }
   .badge-med { background: var(--med-peine); color: var(--med-peine-text); border-color: #4a3c18; }
   .badge-heavy { background: var(--heavy-peine); color: var(--heavy-peine-text); border-color: #4a2020; }
 
-  .total-tag {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--accent);
+  .total-tag { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--accent); }
+
+  .toggle-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; cursor: pointer;
+    transition: all 0.15s; user-select: none; white-space: nowrap;
+  }
+  .toggle-btn:hover { border-color: var(--accent2); color: var(--accent); }
+  .toggle-btn.open { border-color: var(--accent2); color: var(--accent); }
+
+  .detail-row { display: none; }
+  .detail-row.open { display: table-row; }
+  .detail-cell { padding: 0 !important; border-bottom: 2px solid var(--accent2) !important; }
+  .detail-inner {
+    background: #131210; padding: 1.5rem;
+    display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start;
   }
 
-  /* INLINE ADD */
-  .add-inline {
-    display: flex;
-    gap: 4px;
-    align-items: center;
+  .statut-block { flex: 1; min-width: 200px; }
+  .block-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .statut-options { display: flex; flex-direction: column; gap: 6px; }
+  .statut-btn {
+    display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+    border: 1px solid var(--border); cursor: pointer; font-family: var(--font-mono);
+    font-size: 12px; color: var(--muted); background: var(--surface); transition: all 0.15s; user-select: none;
   }
+  .statut-btn:hover { border-color: var(--accent2); color: var(--text); }
+  .statut-btn.active-encours { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
+  .statut-btn.active-termine { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+  .statut-btn.active-evade { border-color: #c06060; color: #e08080; background: var(--danger-bg); }
+  .statut-btn.active-libere { border-color: #7ab0d4; color: #9ac8e8; background: var(--light-peine); }
+  .statut-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
+  .add-block { flex: 2; min-width: 300px; }
+  .add-inline { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
   .add-inline input, .add-inline select {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    padding: 3px 6px;
-    height: 28px;
-    outline: none;
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-mono); font-size: 12px; padding: 5px 8px; height: 32px; outline: none;
   }
-
-  .add-inline input[type="text"] { width: 80px; }
-  .add-inline input[type="number"] { width: 50px; }
-  .add-inline select { width: 55px; }
-
+  .add-inline input[type="text"] { width: 110px; }
+  .add-inline input[type="number"] { width: 60px; }
+  .add-inline select { width: 70px; }
   .add-inline input:focus, .add-inline select:focus { border-color: var(--accent2); }
-
   .btn-small {
-    height: 28px;
-    padding: 0 10px;
-    background: transparent;
-    border: 1px solid var(--accent2);
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    cursor: pointer;
-    transition: background 0.15s;
+    height: 32px; padding: 0 12px; background: transparent; border: 1px solid var(--accent2);
+    color: var(--accent); font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: background 0.15s;
   }
   .btn-small:hover { background: var(--accent2); color: var(--bg); }
-
   .btn-del {
-    height: 28px;
-    padding: 0 10px;
-    background: transparent;
-    border: 1px solid #3a1a1a;
-    color: #c06060;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    cursor: pointer;
-    transition: background 0.15s;
+    height: 32px; padding: 0 10px; background: transparent; border: 1px solid #3a1a1a;
+    color: #c06060; font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: background 0.15s;
   }
   .btn-del:hover { background: var(--danger-bg); border-color: var(--danger); color: #e08080; }
 
-  /* EMPTY */
-  .empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--muted);
-    font-size: 14px;
-    border: 1px dashed var(--border);
+  .notes-block { flex: 2; min-width: 200px; }
+  .notes-block textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-mono); font-size: 12px; padding: 8px; resize: vertical;
+    min-height: 72px; outline: none; line-height: 1.5;
   }
+  .notes-block textarea:focus { border-color: var(--accent2); }
+  .btn-save-note {
+    margin-top: 6px; height: 28px; padding: 0 12px; background: transparent;
+    border: 1px solid var(--accent2); color: var(--accent); font-family: var(--font-mono);
+    font-size: 11px; cursor: pointer; transition: background 0.15s; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .btn-save-note:hover { background: var(--accent2); color: var(--bg); }
 
-  .empty-state .icon {
-    font-family: var(--font-display);
-    font-size: 40px;
-    color: var(--border);
-    display: block;
-    margin-bottom: 1rem;
-  }
+  .status-tag { display: inline-block; font-size: 11px; padding: 2px 8px; font-family: var(--font-mono); border: 1px solid; }
+  .st-encours { background: var(--warning-bg); color: var(--warning); border-color: #4a3c18; }
+  .st-termine { background: var(--success-bg); color: var(--success); border-color: #1a4a2a; }
+  .st-evade { background: var(--danger-bg); color: #e08080; border-color: #4a2020; }
+  .st-libere { background: var(--light-peine); color: var(--light-peine-text); border-color: #2a4a5e; }
 
-  /* LOADING */
-  .loading {
-    text-align: center;
-    padding: 3rem;
-    color: var(--muted);
-    font-size: 13px;
-  }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); font-size: 14px; border: 1px dashed var(--border); }
+  .empty-state .icon { font-family: var(--font-display); font-size: 40px; color: var(--border); display: block; margin-bottom: 1rem; }
+  .loading { text-align: center; padding: 3rem; color: var(--muted); font-size: 13px; }
 
   @media (max-width: 700px) {
     .main { padding: 1rem; }
@@ -361,13 +205,14 @@
     .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
     .form-row { flex-direction: column; }
     .f-group { width: 100% !important; min-width: unset !important; }
+    .detail-inner { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="logo">⚖ Registre des Peines <span>Departement de la Justice</span></div>
+  <div class="logo">⚖ Registre des Peines <span>Roleplay Judiciaire</span></div>
   <div class="sync-dot">
     <div class="dot" id="dot"></div>
     <span id="sync-label">Connexion...</span>
@@ -375,28 +220,20 @@
 </div>
 
 <div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-label">Condamnés</div>
-    <div class="stat-value" id="stat-total">—</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-label">Peines prononcées</div>
-    <div class="stat-value" id="stat-peines">—</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-label">Durée cumulée</div>
-    <div class="stat-value" id="stat-duree">—</div>
-  </div>
+  <div class="stat-item"><div class="stat-label">Condamnés</div><div class="stat-value" id="stat-total">—</div></div>
+  <div class="stat-item"><div class="stat-label">Peines prononcées</div><div class="stat-value" id="stat-peines">—</div></div>
+  <div class="stat-item"><div class="stat-label">Durée cumulée</div><div class="stat-value" id="stat-duree">—</div></div>
+  <div class="stat-item"><div class="stat-label">En cours</div><div class="stat-value" id="stat-encours">—</div></div>
 </div>
 
 <div class="main">
-
   <div class="form-card">
     <div class="form-title">Prononcer une peine</div>
     <div class="form-row">
-      <div class="f-group f-nom">
+      <div class="f-group f-nom" id="nom-group">
         <label>Nom complet du condamné</label>
-        <input type="text" id="inp-nom" placeholder="Prénom Nom" autocomplete="off" />
+        <input type="text" id="inp-nom" placeholder="Prénom Nom" autocomplete="off" oninput="onNomInput()" onkeydown="onNomKey(event)" />
+        <div class="autocomplete-list" id="autocomplete-list"></div>
       </div>
       <div class="f-group f-delit">
         <label>Chef d'inculpation</label>
@@ -414,7 +251,7 @@
           <option value="jours">Jours</option>
         </select>
       </div>
-      <button class="btn-primary" onclick="ajouterPersonne()">+ Condamner</button>
+      <button class="btn-primary" onclick="ajouterOuCumuler()">+ Condamner</button>
     </div>
     <div class="err-msg" id="err-msg"></div>
   </div>
@@ -432,9 +269,8 @@
           <th>#</th>
           <th>Condamné</th>
           <th>Délits / Peines</th>
-          <th>Nb</th>
+          <th>Statut</th>
           <th>Total</th>
-          <th>Ajouter peine</th>
           <th></th>
         </tr>
       </thead>
@@ -445,7 +281,6 @@
       Aucun condamné enregistré pour le moment.
     </div>
   </div>
-
 </div>
 
 <script type="module">
@@ -467,14 +302,15 @@
   const dbRef = ref(db, 'condamnes');
 
   let data = {};
+  let acIndex = -1;
 
   function setLive(ok) {
     document.getElementById('dot').className = 'dot' + (ok ? ' live' : '');
     document.getElementById('sync-label').textContent = ok ? 'En direct' : 'Hors ligne';
   }
 
-  onValue(dbRef, (snapshot) => {
-    data = snapshot.val() || {};
+  onValue(dbRef, (snap) => {
+    data = snap.val() || {};
     setLive(true);
     document.getElementById('loading-msg').style.display = 'none';
     document.getElementById('main-table').style.display = 'table';
@@ -514,8 +350,52 @@
     el._t = setTimeout(() => el.style.display = 'none', 3500);
   }
 
-  window.ajouterPersonne = function() {
-    const nom = document.getElementById('inp-nom').value.trim();
+  /* ── AUTOCOMPLETE ── */
+  window.onNomInput = function() {
+    const q = nomNorm(document.getElementById('inp-nom').value);
+    const list = document.getElementById('autocomplete-list');
+    const nomEl = document.getElementById('inp-nom');
+    delete nomEl.dataset.existingKey;
+    acIndex = -1;
+    if (!q) { list.classList.remove('open'); return; }
+    const matches = Object.entries(data).filter(([k, d]) => nomNorm(d.nom).includes(q));
+    if (!matches.length) { list.classList.remove('open'); return; }
+    list.innerHTML = matches.map(([k, d]) =>
+      `<div class="autocomplete-item" data-key="${k}" data-nom="${d.nom}" onclick="selectNom('${k}','${d.nom.replace(/'/g,"\\'")}')">
+        ${d.nom} <span class="tag-existing">déjà condamné</span>
+      </div>`
+    ).join('');
+    list.classList.add('open');
+  };
+
+  window.onNomKey = function(e) {
+    const list = document.getElementById('autocomplete-list');
+    const items = list.querySelectorAll('.autocomplete-item');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') { acIndex = Math.min(acIndex + 1, items.length - 1); highlightAc(items); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { acIndex = Math.max(acIndex - 1, 0); highlightAc(items); e.preventDefault(); }
+    else if (e.key === 'Enter' && acIndex >= 0) { items[acIndex].click(); e.preventDefault(); }
+    else if (e.key === 'Escape') { list.classList.remove('open'); }
+  };
+
+  function highlightAc(items) { items.forEach((it, i) => it.classList.toggle('selected', i === acIndex)); }
+
+  window.selectNom = function(key, nom) {
+    const el = document.getElementById('inp-nom');
+    el.value = nom;
+    el.dataset.existingKey = key;
+    document.getElementById('autocomplete-list').classList.remove('open');
+    document.getElementById('inp-delit').focus();
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#nom-group')) document.getElementById('autocomplete-list').classList.remove('open');
+  });
+
+  /* ── AJOUTER / CUMULER ── */
+  window.ajouterOuCumuler = function() {
+    const nomEl = document.getElementById('inp-nom');
+    const nom = nomEl.value.trim();
     const delit = document.getElementById('inp-delit').value.trim();
     const val = parseFloat(document.getElementById('inp-val').value);
     const unit = document.getElementById('inp-unit').value;
@@ -524,20 +404,49 @@
     if (!delit) return showErr('Veuillez indiquer le chef d\'inculpation.');
     if (!val || val <= 0) return showErr('Durée invalide.');
 
-    const normNom = nomNorm(nom);
-    const doublon = Object.values(data).find(d => nomNorm(d.nom) === normNom);
-    if (doublon) return showErr('Ce condamné existe déjà ! Utilisez "+ Peine" sur sa ligne pour ajouter une peine.');
+    const existingKey = nomEl.dataset.existingKey;
+    const doublon = !existingKey && Object.entries(data).find(([k, d]) => nomNorm(d.nom) === nomNorm(nom));
+    const targetKey = existingKey || (doublon && doublon[0]);
 
-    const nomFormate = nom.replace(/\b\w/g, c => c.toUpperCase());
-    push(dbRef, {
-      nom: nomFormate,
-      peines: [{ delit, val, unit }],
-      date: new Date().toLocaleDateString('fr-FR')
-    });
+    if (targetKey && data[targetKey]) {
+      const entry = data[targetKey];
+      const peines = entry.peines ? [...entry.peines, { delit, val, unit }] : [{ delit, val, unit }];
+      update(ref(db, 'condamnes/' + targetKey), { peines });
+    } else {
+      push(dbRef, {
+        nom: nom.replace(/\b\w/g, c => c.toUpperCase()),
+        peines: [{ delit, val, unit }],
+        statut: 'encours',
+        notes: '',
+        date: new Date().toLocaleDateString('fr-FR')
+      });
+    }
 
-    document.getElementById('inp-nom').value = '';
+    nomEl.value = '';
+    delete nomEl.dataset.existingKey;
     document.getElementById('inp-delit').value = '';
     document.getElementById('inp-val').value = '';
+    document.getElementById('autocomplete-list').classList.remove('open');
+  };
+
+  /* ── DETAIL TOGGLE ── */
+  window.toggleDetail = function(key) {
+    const row = document.getElementById('detail-' + key);
+    const btn = document.getElementById('toggle-' + key);
+    if (!row) return;
+    const isOpen = row.classList.contains('open');
+    row.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '▼ Détails' : '▲ Fermer';
+  };
+
+  window.setStatut = function(key, statut) {
+    update(ref(db, 'condamnes/' + key), { statut });
+  };
+
+  window.saveNote = function(key) {
+    const val = document.getElementById('note-' + key).value;
+    update(ref(db, 'condamnes/' + key), { notes: val });
   };
 
   window.ajouterPeine = function(key) {
@@ -548,31 +457,39 @@
     const unit = unitEl.value;
     const delit = delitEl.value.trim() || 'Non précisé';
     if (!val || val <= 0) return;
-
     const entry = data[key];
     const peines = entry.peines ? [...entry.peines, { delit, val, unit }] : [{ delit, val, unit }];
     update(ref(db, 'condamnes/' + key), { peines });
-    valEl.value = '';
-    delitEl.value = '';
+    valEl.value = ''; delitEl.value = '';
   };
 
   window.supprimerPersonne = function(key) {
-    if (confirm('Supprimer ce condamné du registre ?')) {
-      remove(ref(db, 'condamnes/' + key));
-    }
+    if (confirm('Supprimer définitivement ce condamné du registre ?')) remove(ref(db, 'condamnes/' + key));
   };
 
+  /* ── STATS ── */
   function updateStats() {
     const entries = Object.values(data);
     document.getElementById('stat-total').textContent = entries.length;
-    const totalP = entries.reduce((s, d) => s + (d.peines ? d.peines.length : 0), 0);
-    document.getElementById('stat-peines').textContent = totalP;
-    const totalM = entries.reduce((s, d) => {
-      return s + (d.peines ? d.peines.reduce((ss, p) => ss + toMois(p.val, p.unit), 0) : 0);
-    }, 0);
+    document.getElementById('stat-peines').textContent = entries.reduce((s, d) => s + (d.peines ? d.peines.length : 0), 0);
+    const totalM = entries.reduce((s, d) => s + (d.peines ? d.peines.reduce((ss, p) => ss + toMois(p.val, p.unit), 0) : 0), 0);
     document.getElementById('stat-duree').textContent = formatTotal(totalM);
+    document.getElementById('stat-encours').textContent = entries.filter(d => !d.statut || d.statut === 'encours').length;
   }
 
+  const STATUTS = [
+    { key: 'encours', label: 'En cours de peine',      cls: 'active-encours', tagCls: 'st-encours' },
+    { key: 'termine', label: 'Peine effectuée',         cls: 'active-termine', tagCls: 'st-termine' },
+    { key: 'libere',  label: 'Libéré sous condition',   cls: 'active-libere',  tagCls: 'st-libere'  },
+    { key: 'evade',   label: 'Évadé',                   cls: 'active-evade',   tagCls: 'st-evade'   },
+  ];
+
+  function statutTag(s) {
+    const st = STATUTS.find(x => x.key === s) || STATUTS[0];
+    return `<span class="status-tag ${st.tagCls}">${st.label}</span>`;
+  }
+
+  /* ── RENDER ── */
   window.renderTable = function() {
     const q = document.getElementById('search').value.toLowerCase();
     const entries = Object.entries(data).filter(([k, d]) => d.nom.toLowerCase().includes(q));
@@ -588,33 +505,62 @@
       table.style.display = 'none';
       return;
     }
-
     empty.style.display = 'none';
     table.style.display = 'table';
 
     tbody.innerHTML = entries.map(([key, d], i) => {
       const peines = d.peines || [];
       const moisTotal = peines.reduce((s, p) => s + toMois(p.val, p.unit), 0);
+      const statut = d.statut || 'encours';
       const peinesHtml = peines.map(p =>
         `<span class="badge ${badgeClass(toMois(p.val, p.unit))}">${p.delit}: ${p.val} ${p.unit}</span>`
       ).join('');
+      const statutBtns = STATUTS.map(s =>
+        `<div class="statut-btn ${statut === s.key ? s.cls : ''}" onclick="setStatut('${key}','${s.key}')">
+          <span class="statut-dot"></span>${s.label}
+        </div>`
+      ).join('');
 
-      return `<tr>
-        <td class="td-num">${i + 1}</td>
-        <td class="td-nom">${d.nom}<br><span style="font-size:11px;color:var(--muted);font-family:var(--font-mono);font-weight:400;">${d.date || ''}</span></td>
-        <td>${peinesHtml}</td>
-        <td style="color:var(--muted);font-size:12px;">${peines.length}</td>
-        <td><span class="total-tag">${formatTotal(moisTotal)}</span></td>
-        <td>
-          <div class="add-inline">
-            <input type="text" id="ad-${key}" placeholder="Délit" />
-            <input type="number" id="av-${key}" min="1" placeholder="N" />
-            <select id="au-${key}"><option value="mois">Mois</option><option value="ans">Ans</option><option value="jours">Jours</option></select>
-            <button class="btn-small" onclick="ajouterPeine('${key}')">+ Peine</button>
-          </div>
-        </td>
-        <td><button class="btn-del" onclick="supprimerPersonne('${key}')">✕</button></td>
-      </tr>`;
+      return `
+        <tr class="main-row" onclick="toggleDetail('${key}')">
+          <td class="td-num">${i + 1}</td>
+          <td class="td-nom">${d.nom}<br><span class="date-sub">${d.date || ''}</span></td>
+          <td>${peinesHtml}</td>
+          <td>${statutTag(statut)}</td>
+          <td><span class="total-tag">${formatTotal(moisTotal)}</span></td>
+          <td><button class="toggle-btn" id="toggle-${key}" onclick="event.stopPropagation();toggleDetail('${key}')">▼ Détails</button></td>
+        </tr>
+        <tr class="detail-row" id="detail-${key}">
+          <td class="detail-cell" colspan="6">
+            <div class="detail-inner">
+              <div class="statut-block">
+                <div class="block-title">Statut de la peine</div>
+                <div class="statut-options">${statutBtns}</div>
+                <div style="margin-top:14px;">
+                  <button class="btn-del" onclick="supprimerPersonne('${key}')">✕ Supprimer du registre</button>
+                </div>
+              </div>
+              <div class="add-block">
+                <div class="block-title">Ajouter une peine supplémentaire</div>
+                <div class="add-inline">
+                  <input type="text" id="ad-${key}" placeholder="Délit" onclick="event.stopPropagation()" />
+                  <input type="number" id="av-${key}" min="1" placeholder="N" onclick="event.stopPropagation()" />
+                  <select id="au-${key}" onclick="event.stopPropagation()">
+                    <option value="mois">Mois</option>
+                    <option value="ans">Ans</option>
+                    <option value="jours">Jours</option>
+                  </select>
+                  <button class="btn-small" onclick="event.stopPropagation();ajouterPeine('${key}')">+ Ajouter</button>
+                </div>
+              </div>
+              <div class="notes-block">
+                <div class="block-title">Notes / Observations</div>
+                <textarea id="note-${key}" onclick="event.stopPropagation()" placeholder="Comportement en détention, remises de peine...">${d.notes || ''}</textarea><br>
+                <button class="btn-save-note" onclick="event.stopPropagation();saveNote('${key}')">Sauvegarder</button>
+              </div>
+            </div>
+          </td>
+        </tr>`;
     }).join('');
   };
 </script>
