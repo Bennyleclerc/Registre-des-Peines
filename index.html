@@ -38,7 +38,7 @@
     padding: 1.2rem 2rem; border-bottom: 1px solid var(--border);
     background: var(--surface); position: sticky; top: 0; z-index: 200;
   }
-  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--accent); letter-spacing: 0.02em; }
+  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--accent); }
   .logo span { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 10px; }
   .sync-dot { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); transition: background 0.3s; }
@@ -48,7 +48,7 @@
   .stat-item { flex: 1; padding: 1rem 1.5rem; border-right: 1px solid var(--border); text-align: center; }
   .stat-item:last-child { border-right: none; }
   .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
-  .stat-value { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--accent); }
+  .stat-value { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--accent); }
 
   .main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
 
@@ -96,7 +96,7 @@
   .search-row { display: flex; gap: 10px; margin-bottom: 1.5rem; align-items: center; }
   .search-row input {
     flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    font-family: var(--font-mono); font-size: 14px; padding: 8px 14px; height: 38px; outline: none; transition: border-color 0.2s;
+    font-family: var(--font-mono); font-size: 14px; padding: 8px 14px; height: 38px; outline: none;
   }
   .search-row input:focus { border-color: var(--accent2); }
   .count-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
@@ -116,12 +116,20 @@
   .td-nom { font-weight: 500; font-size: 15px; font-family: var(--font-display); color: var(--accent); }
   .td-nom .date-sub { font-size: 11px; color: var(--muted); font-family: var(--font-mono); font-weight: 400; }
 
-  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; margin: 2px 2px 2px 0; font-family: var(--font-mono); border: 1px solid; }
+  /* Badges peines dans la liste principale */
+  .badge {
+    display: inline-block; font-size: 11px; padding: 2px 8px;
+    margin: 2px 2px 2px 0; font-family: var(--font-mono); border: 1px solid;
+  }
   .badge-light { background: var(--light-peine); color: var(--light-peine-text); border-color: #2a4a5e; }
-  .badge-med { background: var(--med-peine); color: var(--med-peine-text); border-color: #4a3c18; }
-  .badge-heavy { background: var(--heavy-peine); color: var(--heavy-peine-text); border-color: #4a2020; }
+  .badge-med   { background: var(--med-peine);   color: var(--med-peine-text);   border-color: #4a3c18; }
+  .badge-heavy { background: var(--heavy-peine);  color: var(--heavy-peine-text); border-color: #4a2020; }
+  .badge-done  { background: #111; color: var(--muted); border-color: #2a2a2a; text-decoration: line-through; opacity: 0.6; }
 
-  .total-tag { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--accent); }
+  /* Total restant vs total global */
+  .total-wrap { display: flex; flex-direction: column; gap: 2px; }
+  .total-restant { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--accent); }
+  .total-sub { font-size: 11px; color: var(--muted); }
 
   .toggle-btn {
     background: transparent; border: 1px solid var(--border); color: var(--muted);
@@ -131,30 +139,58 @@
   .toggle-btn:hover { border-color: var(--accent2); color: var(--accent); }
   .toggle-btn.open { border-color: var(--accent2); color: var(--accent); }
 
+  /* DETAIL ROW */
   .detail-row { display: none; }
   .detail-row.open { display: table-row; }
   .detail-cell { padding: 0 !important; border-bottom: 2px solid var(--accent2) !important; }
-  .detail-inner {
-    background: #131210; padding: 1.5rem;
-    display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start;
-  }
+  .detail-inner { background: #131210; padding: 1.5rem; display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
 
-  .statut-block { flex: 1; min-width: 200px; }
+  /* PEINES DETAIL */
+  .peines-block { flex: 3; min-width: 280px; }
   .block-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-  .statut-options { display: flex; flex-direction: column; gap: 6px; }
-  .statut-btn {
-    display: flex; align-items: center; gap: 10px; padding: 9px 14px;
-    border: 1px solid var(--border); cursor: pointer; font-family: var(--font-mono);
-    font-size: 12px; color: var(--muted); background: var(--surface); transition: all 0.15s; user-select: none;
-  }
-  .statut-btn:hover { border-color: var(--accent2); color: var(--text); }
-  .statut-btn.active-encours { border-color: var(--warning); color: var(--warning); background: var(--warning-bg); }
-  .statut-btn.active-termine { border-color: var(--success); color: var(--success); background: var(--success-bg); }
-  .statut-btn.active-evade { border-color: #c06060; color: #e08080; background: var(--danger-bg); }
-  .statut-btn.active-libere { border-color: #7ab0d4; color: #9ac8e8; background: var(--light-peine); }
-  .statut-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-  .add-block { flex: 2; min-width: 300px; }
+  .peine-line {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border: 1px solid var(--border);
+    margin-bottom: 6px; background: var(--surface); transition: background 0.15s;
+  }
+  .peine-line.done { opacity: 0.5; background: #111; }
+
+  .peine-delit { flex: 1; font-size: 13px; color: var(--text); }
+  .peine-delit.done-text { text-decoration: line-through; color: var(--muted); }
+  .peine-duree { font-size: 13px; color: var(--accent); white-space: nowrap; }
+  .peine-duree.done-text { color: var(--muted); text-decoration: line-through; }
+
+  .peine-status-badge {
+    font-size: 10px; padding: 2px 8px; border: 1px solid; white-space: nowrap; cursor: default;
+  }
+  .psb-encours { background: var(--warning-bg); color: var(--warning); border-color: #4a3c18; }
+  .psb-effectuee { background: var(--success-bg); color: var(--success); border-color: #1a4a2a; }
+
+  .btn-toggle-peine {
+    font-size: 11px; padding: 3px 10px; border: 1px solid; cursor: pointer;
+    font-family: var(--font-mono); background: transparent; white-space: nowrap; transition: all 0.15s;
+  }
+  .btn-toggle-peine.to-done { border-color: var(--success); color: var(--success); }
+  .btn-toggle-peine.to-done:hover { background: var(--success-bg); }
+  .btn-toggle-peine.to-encours { border-color: var(--warning); color: var(--warning); }
+  .btn-toggle-peine.to-encours:hover { background: var(--warning-bg); }
+
+  /* RÉSUMÉ TOTAL dans le détail */
+  .total-detail-box {
+    margin-top: 12px; padding: 10px 14px;
+    border: 1px solid var(--border); background: var(--bg);
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .tdb-item { display: flex; flex-direction: column; gap: 2px; }
+  .tdb-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .tdb-val { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+  .tdb-val.col-total { color: var(--muted); }
+  .tdb-val.col-done { color: var(--success); }
+  .tdb-val.col-rest { color: var(--accent); }
+
+  /* ADD PEINE */
+  .add-block { flex: 2; min-width: 260px; }
   .add-inline { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
   .add-inline input, .add-inline select {
     background: var(--bg); border: 1px solid var(--border); color: var(--text);
@@ -175,6 +211,7 @@
   }
   .btn-del:hover { background: var(--danger-bg); border-color: var(--danger); color: #e08080; }
 
+  /* NOTES */
   .notes-block { flex: 2; min-width: 200px; }
   .notes-block textarea {
     width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
@@ -188,12 +225,6 @@
     font-size: 11px; cursor: pointer; transition: background 0.15s; text-transform: uppercase; letter-spacing: 0.05em;
   }
   .btn-save-note:hover { background: var(--accent2); color: var(--bg); }
-
-  .status-tag { display: inline-block; font-size: 11px; padding: 2px 8px; font-family: var(--font-mono); border: 1px solid; }
-  .st-encours { background: var(--warning-bg); color: var(--warning); border-color: #4a3c18; }
-  .st-termine { background: var(--success-bg); color: var(--success); border-color: #1a4a2a; }
-  .st-evade { background: var(--danger-bg); color: #e08080; border-color: #4a2020; }
-  .st-libere { background: var(--light-peine); color: var(--light-peine-text); border-color: #2a4a5e; }
 
   .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); font-size: 14px; border: 1px dashed var(--border); }
   .empty-state .icon { font-family: var(--font-display); font-size: 40px; color: var(--border); display: block; margin-bottom: 1rem; }
@@ -221,9 +252,9 @@
 
 <div class="stats-bar">
   <div class="stat-item"><div class="stat-label">Condamnés</div><div class="stat-value" id="stat-total">—</div></div>
-  <div class="stat-item"><div class="stat-label">Peines prononcées</div><div class="stat-value" id="stat-peines">—</div></div>
-  <div class="stat-item"><div class="stat-label">Durée cumulée</div><div class="stat-value" id="stat-duree">—</div></div>
-  <div class="stat-item"><div class="stat-label">En cours</div><div class="stat-value" id="stat-encours">—</div></div>
+  <div class="stat-item"><div class="stat-label">Peines totales</div><div class="stat-value" id="stat-peines">—</div></div>
+  <div class="stat-item"><div class="stat-label">Temps restant cumulé</div><div class="stat-value" id="stat-restant">—</div></div>
+  <div class="stat-item"><div class="stat-label">Temps purgé cumulé</div><div class="stat-value" id="stat-purge">—</div></div>
 </div>
 
 <div class="main">
@@ -268,17 +299,15 @@
         <tr>
           <th>#</th>
           <th>Condamné</th>
-          <th>Délits / Peines</th>
-          <th>Statut</th>
-          <th>Total</th>
+          <th>Peines</th>
+          <th>Restant à purger</th>
           <th></th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
     </table>
     <div class="empty-state" id="empty-msg" style="display:none;">
-      <span class="icon">⚖</span>
-      Aucun condamné enregistré pour le moment.
+      <span class="icon">⚖</span>Aucun condamné enregistré.
     </div>
   </div>
 </div>
@@ -300,7 +329,6 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const dbRef = ref(db, 'condamnes');
-
   let data = {};
   let acIndex = -1;
 
@@ -318,14 +346,16 @@
     updateStats();
   }, () => setLive(false));
 
+  /* ── UTILS ── */
   function toMois(val, unit) {
     if (unit === 'ans') return val * 12;
     if (unit === 'jours') return Math.round(val / 30 * 10) / 10;
-    return val;
+    return parseFloat(val);
   }
 
   function formatTotal(mois) {
     mois = Math.round(mois);
+    if (mois <= 0) return '0 mois';
     if (mois >= 24) {
       const ans = Math.floor(mois / 12);
       const reste = mois % 12;
@@ -342,12 +372,20 @@
 
   function nomNorm(n) { return n.trim().toLowerCase().replace(/\s+/g, ' '); }
 
+  function calcTotaux(peines) {
+    let total = 0, purge = 0, restant = 0;
+    (peines || []).forEach(p => {
+      const m = toMois(p.val, p.unit);
+      total += m;
+      if (p.effectuee) purge += m; else restant += m;
+    });
+    return { total, purge, restant };
+  }
+
   function showErr(msg) {
     const el = document.getElementById('err-msg');
-    el.textContent = msg;
-    el.style.display = 'block';
-    clearTimeout(el._t);
-    el._t = setTimeout(() => el.style.display = 'none', 3500);
+    el.textContent = msg; el.style.display = 'block';
+    clearTimeout(el._t); el._t = setTimeout(() => el.style.display = 'none', 3500);
   }
 
   /* ── AUTOCOMPLETE ── */
@@ -361,7 +399,7 @@
     const matches = Object.entries(data).filter(([k, d]) => nomNorm(d.nom).includes(q));
     if (!matches.length) { list.classList.remove('open'); return; }
     list.innerHTML = matches.map(([k, d]) =>
-      `<div class="autocomplete-item" data-key="${k}" data-nom="${d.nom}" onclick="selectNom('${k}','${d.nom.replace(/'/g,"\\'")}')">
+      `<div class="autocomplete-item" data-key="${k}" onclick="selectNom('${k}','${d.nom.replace(/'/g,"\\'")}')">
         ${d.nom} <span class="tag-existing">déjà condamné</span>
       </div>`
     ).join('');
@@ -369,28 +407,22 @@
   };
 
   window.onNomKey = function(e) {
-    const list = document.getElementById('autocomplete-list');
-    const items = list.querySelectorAll('.autocomplete-item');
+    const items = document.querySelectorAll('#autocomplete-list .autocomplete-item');
     if (!items.length) return;
-    if (e.key === 'ArrowDown') { acIndex = Math.min(acIndex + 1, items.length - 1); highlightAc(items); e.preventDefault(); }
-    else if (e.key === 'ArrowUp') { acIndex = Math.max(acIndex - 1, 0); highlightAc(items); e.preventDefault(); }
+    if (e.key === 'ArrowDown') { acIndex = Math.min(acIndex+1, items.length-1); highlightAc(items); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { acIndex = Math.max(acIndex-1,0); highlightAc(items); e.preventDefault(); }
     else if (e.key === 'Enter' && acIndex >= 0) { items[acIndex].click(); e.preventDefault(); }
-    else if (e.key === 'Escape') { list.classList.remove('open'); }
+    else if (e.key === 'Escape') document.getElementById('autocomplete-list').classList.remove('open');
   };
-
-  function highlightAc(items) { items.forEach((it, i) => it.classList.toggle('selected', i === acIndex)); }
+  function highlightAc(items) { items.forEach((it,i) => it.classList.toggle('selected', i===acIndex)); }
 
   window.selectNom = function(key, nom) {
     const el = document.getElementById('inp-nom');
-    el.value = nom;
-    el.dataset.existingKey = key;
+    el.value = nom; el.dataset.existingKey = key;
     document.getElementById('autocomplete-list').classList.remove('open');
     document.getElementById('inp-delit').focus();
   };
-
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('#nom-group')) document.getElementById('autocomplete-list').classList.remove('open');
-  });
+  document.addEventListener('click', e => { if (!e.target.closest('#nom-group')) document.getElementById('autocomplete-list').classList.remove('open'); });
 
   /* ── AJOUTER / CUMULER ── */
   window.ajouterOuCumuler = function() {
@@ -399,40 +431,44 @@
     const delit = document.getElementById('inp-delit').value.trim();
     const val = parseFloat(document.getElementById('inp-val').value);
     const unit = document.getElementById('inp-unit').value;
-
     if (!nom) return showErr('Veuillez entrer un nom complet.');
     if (!delit) return showErr('Veuillez indiquer le chef d\'inculpation.');
     if (!val || val <= 0) return showErr('Durée invalide.');
 
     const existingKey = nomEl.dataset.existingKey;
-    const doublon = !existingKey && Object.entries(data).find(([k, d]) => nomNorm(d.nom) === nomNorm(nom));
+    const doublon = !existingKey && Object.entries(data).find(([k,d]) => nomNorm(d.nom) === nomNorm(nom));
     const targetKey = existingKey || (doublon && doublon[0]);
 
     if (targetKey && data[targetKey]) {
       const entry = data[targetKey];
-      const peines = entry.peines ? [...entry.peines, { delit, val, unit }] : [{ delit, val, unit }];
-      update(ref(db, 'condamnes/' + targetKey), { peines });
+      const peines = [...(entry.peines || []), { delit, val, unit, effectuee: false }];
+      update(ref(db, 'condamnes/'+targetKey), { peines });
     } else {
       push(dbRef, {
         nom: nom.replace(/\b\w/g, c => c.toUpperCase()),
-        peines: [{ delit, val, unit }],
-        statut: 'encours',
+        peines: [{ delit, val, unit, effectuee: false }],
         notes: '',
         date: new Date().toLocaleDateString('fr-FR')
       });
     }
-
-    nomEl.value = '';
-    delete nomEl.dataset.existingKey;
+    nomEl.value = ''; delete nomEl.dataset.existingKey;
     document.getElementById('inp-delit').value = '';
     document.getElementById('inp-val').value = '';
     document.getElementById('autocomplete-list').classList.remove('open');
   };
 
-  /* ── DETAIL TOGGLE ── */
+  /* ── TOGGLE PEINE EFFECTUÉE ── */
+  window.togglePeine = function(key, index) {
+    const entry = data[key];
+    if (!entry || !entry.peines) return;
+    const peines = entry.peines.map((p, i) => i === index ? { ...p, effectuee: !p.effectuee } : p);
+    update(ref(db, 'condamnes/'+key), { peines });
+  };
+
+  /* ── DÉTAIL TOGGLE ── */
   window.toggleDetail = function(key) {
-    const row = document.getElementById('detail-' + key);
-    const btn = document.getElementById('toggle-' + key);
+    const row = document.getElementById('detail-'+key);
+    const btn = document.getElementById('toggle-'+key);
     if (!row) return;
     const isOpen = row.classList.contains('open');
     row.classList.toggle('open', !isOpen);
@@ -440,66 +476,54 @@
     btn.textContent = isOpen ? '▼ Détails' : '▲ Fermer';
   };
 
-  window.setStatut = function(key, statut) {
-    update(ref(db, 'condamnes/' + key), { statut });
-  };
-
-  window.saveNote = function(key) {
-    const val = document.getElementById('note-' + key).value;
-    update(ref(db, 'condamnes/' + key), { notes: val });
-  };
-
+  /* ── AJOUTER PEINE DEPUIS DÉTAIL ── */
   window.ajouterPeine = function(key) {
-    const delitEl = document.getElementById('ad-' + key);
-    const valEl = document.getElementById('av-' + key);
-    const unitEl = document.getElementById('au-' + key);
+    const delitEl = document.getElementById('ad-'+key);
+    const valEl   = document.getElementById('av-'+key);
+    const unitEl  = document.getElementById('au-'+key);
     const val = parseFloat(valEl.value);
-    const unit = unitEl.value;
-    const delit = delitEl.value.trim() || 'Non précisé';
     if (!val || val <= 0) return;
+    const delit = delitEl.value.trim() || 'Non précisé';
     const entry = data[key];
-    const peines = entry.peines ? [...entry.peines, { delit, val, unit }] : [{ delit, val, unit }];
-    update(ref(db, 'condamnes/' + key), { peines });
+    const peines = [...(entry.peines||[]), { delit, val, unit: unitEl.value, effectuee: false }];
+    update(ref(db, 'condamnes/'+key), { peines });
     valEl.value = ''; delitEl.value = '';
   };
 
-  window.supprimerPersonne = function(key) {
-    if (confirm('Supprimer définitivement ce condamné du registre ?')) remove(ref(db, 'condamnes/' + key));
+  window.saveNote = function(key) {
+    update(ref(db, 'condamnes/'+key), { notes: document.getElementById('note-'+key).value });
   };
 
-  /* ── STATS ── */
+  window.supprimerPersonne = function(key) {
+    if (confirm('Supprimer définitivement ce condamné du registre ?')) remove(ref(db, 'condamnes/'+key));
+  };
+
+  /* ── STATS GLOBALES ── */
   function updateStats() {
     const entries = Object.values(data);
     document.getElementById('stat-total').textContent = entries.length;
-    document.getElementById('stat-peines').textContent = entries.reduce((s, d) => s + (d.peines ? d.peines.length : 0), 0);
-    const totalM = entries.reduce((s, d) => s + (d.peines ? d.peines.reduce((ss, p) => ss + toMois(p.val, p.unit), 0) : 0), 0);
-    document.getElementById('stat-duree').textContent = formatTotal(totalM);
-    document.getElementById('stat-encours').textContent = entries.filter(d => !d.statut || d.statut === 'encours').length;
-  }
-
-  const STATUTS = [
-    { key: 'encours', label: 'En cours de peine',      cls: 'active-encours', tagCls: 'st-encours' },
-    { key: 'termine', label: 'Peine effectuée',         cls: 'active-termine', tagCls: 'st-termine' },
-    { key: 'libere',  label: 'Libéré sous condition',   cls: 'active-libere',  tagCls: 'st-libere'  },
-    { key: 'evade',   label: 'Évadé',                   cls: 'active-evade',   tagCls: 'st-evade'   },
-  ];
-
-  function statutTag(s) {
-    const st = STATUTS.find(x => x.key === s) || STATUTS[0];
-    return `<span class="status-tag ${st.tagCls}">${st.label}</span>`;
+    let totalP = 0, totalRestant = 0, totalPurge = 0;
+    entries.forEach(d => {
+      const t = calcTotaux(d.peines);
+      totalP += (d.peines||[]).length;
+      totalRestant += t.restant;
+      totalPurge += t.purge;
+    });
+    document.getElementById('stat-peines').textContent = totalP;
+    document.getElementById('stat-restant').textContent = formatTotal(totalRestant);
+    document.getElementById('stat-purge').textContent = formatTotal(totalPurge);
   }
 
   /* ── RENDER ── */
   window.renderTable = function() {
     const q = document.getElementById('search').value.toLowerCase();
-    const entries = Object.entries(data).filter(([k, d]) => d.nom.toLowerCase().includes(q));
+    const entries = Object.entries(data).filter(([k,d]) => d.nom.toLowerCase().includes(q));
     const tbody = document.getElementById('tbody');
     const empty = document.getElementById('empty-msg');
     const table = document.getElementById('main-table');
-
     document.getElementById('count-label').textContent = entries.length + ' condamné(s)';
 
-    if (entries.length === 0) {
+    if (!entries.length) {
       tbody.innerHTML = '';
       empty.style.display = 'block';
       table.style.display = 'none';
@@ -510,36 +534,66 @@
 
     tbody.innerHTML = entries.map(([key, d], i) => {
       const peines = d.peines || [];
-      const moisTotal = peines.reduce((s, p) => s + toMois(p.val, p.unit), 0);
-      const statut = d.statut || 'encours';
-      const peinesHtml = peines.map(p =>
-        `<span class="badge ${badgeClass(toMois(p.val, p.unit))}">${p.delit}: ${p.val} ${p.unit}</span>`
-      ).join('');
-      const statutBtns = STATUTS.map(s =>
-        `<div class="statut-btn ${statut === s.key ? s.cls : ''}" onclick="setStatut('${key}','${s.key}')">
-          <span class="statut-dot"></span>${s.label}
-        </div>`
-      ).join('');
+      const { total, purge, restant } = calcTotaux(peines);
+
+      /* Badges pour la ligne principale */
+      const peinesHtml = peines.map(p => {
+        const m = toMois(p.val, p.unit);
+        const cls = p.effectuee ? 'badge-done' : badgeClass(m);
+        return `<span class="badge ${cls}">${p.delit}: ${p.val} ${p.unit}</span>`;
+      }).join('');
+
+      /* Lignes de peines dans le détail */
+      const peinesDetailHtml = peines.map((p, pi) => {
+        const done = p.effectuee;
+        return `
+          <div class="peine-line ${done ? 'done' : ''}">
+            <span class="peine-delit ${done ? 'done-text' : ''}">${p.delit}</span>
+            <span class="peine-duree ${done ? 'done-text' : ''}">${p.val} ${p.unit}</span>
+            <span class="peine-status-badge ${done ? 'psb-effectuee' : 'psb-encours'}">${done ? '✓ Effectuée' : '⧖ En cours'}</span>
+            <button class="btn-toggle-peine ${done ? 'to-encours' : 'to-done'}"
+              onclick="event.stopPropagation();togglePeine('${key}',${pi})">
+              ${done ? '↩ Remettre en cours' : '✓ Marquer effectuée'}
+            </button>
+          </div>`;
+      }).join('');
+
+      /* Résumé totaux dans le détail */
+      const totalBox = `
+        <div class="total-detail-box">
+          <div class="tdb-item"><div class="tdb-label">Total prononcé</div><div class="tdb-val col-total">${formatTotal(total)}</div></div>
+          <div class="tdb-item"><div class="tdb-label">Purgé</div><div class="tdb-val col-done">${formatTotal(purge)}</div></div>
+          <div class="tdb-item"><div class="tdb-label">Restant à purger</div><div class="tdb-val col-rest">${formatTotal(restant)}</div></div>
+        </div>`;
+
+      /* Colonne total dans le tableau */
+      const totalCell = `
+        <div class="total-wrap">
+          <span class="total-restant">${formatTotal(restant)}</span>
+          ${purge > 0 ? `<span class="total-sub">${formatTotal(purge)} purgé${purge > 0 ? '' : ''}</span>` : ''}
+        </div>`;
 
       return `
         <tr class="main-row" onclick="toggleDetail('${key}')">
-          <td class="td-num">${i + 1}</td>
-          <td class="td-nom">${d.nom}<br><span class="date-sub">${d.date || ''}</span></td>
+          <td class="td-num">${i+1}</td>
+          <td class="td-nom">${d.nom}<br><span class="date-sub">${d.date||''}</span></td>
           <td>${peinesHtml}</td>
-          <td>${statutTag(statut)}</td>
-          <td><span class="total-tag">${formatTotal(moisTotal)}</span></td>
+          <td>${totalCell}</td>
           <td><button class="toggle-btn" id="toggle-${key}" onclick="event.stopPropagation();toggleDetail('${key}')">▼ Détails</button></td>
         </tr>
         <tr class="detail-row" id="detail-${key}">
-          <td class="detail-cell" colspan="6">
+          <td class="detail-cell" colspan="5">
             <div class="detail-inner">
-              <div class="statut-block">
-                <div class="block-title">Statut de la peine</div>
-                <div class="statut-options">${statutBtns}</div>
-                <div style="margin-top:14px;">
+
+              <div class="peines-block">
+                <div class="block-title">Détail des peines</div>
+                ${peinesDetailHtml}
+                ${totalBox}
+                <div style="margin-top:12px;">
                   <button class="btn-del" onclick="supprimerPersonne('${key}')">✕ Supprimer du registre</button>
                 </div>
               </div>
+
               <div class="add-block">
                 <div class="block-title">Ajouter une peine supplémentaire</div>
                 <div class="add-inline">
@@ -553,11 +607,13 @@
                   <button class="btn-small" onclick="event.stopPropagation();ajouterPeine('${key}')">+ Ajouter</button>
                 </div>
               </div>
+
               <div class="notes-block">
                 <div class="block-title">Notes / Observations</div>
-                <textarea id="note-${key}" onclick="event.stopPropagation()" placeholder="Comportement en détention, remises de peine...">${d.notes || ''}</textarea><br>
+                <textarea id="note-${key}" onclick="event.stopPropagation()" placeholder="Comportement en détention, remises de peine...">${d.notes||''}</textarea><br>
                 <button class="btn-save-note" onclick="event.stopPropagation();saveNote('${key}')">Sauvegarder</button>
               </div>
+
             </div>
           </td>
         </tr>`;
